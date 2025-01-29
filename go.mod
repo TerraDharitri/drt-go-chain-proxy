@@ -1,6 +1,6 @@
 module github.com/TerraDharitri/drt-go-chain-proxy
 
-go 1.22.11
+go 1.23.5
 
 require (
 	github.com/TerraDharitri/drt-go-chain-core v0.0.3
