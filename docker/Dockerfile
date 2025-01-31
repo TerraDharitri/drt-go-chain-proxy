@@ -1,5 +1,5 @@
-FROM golang:1.20.7 as builder
-LABEL maintainer="dharitri"
+FROM golang:1.22 AS builder
+LABEL maintainer="TerraDharitri"
 
 WORKDIR /drt-chain-proxy-go
 COPY . .

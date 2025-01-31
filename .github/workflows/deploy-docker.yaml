@@ -1,6 +1,6 @@
 env:
   IMAGE_NODE: chain-proxy
-  REGISTRY_HOSTNAME: dharitri
+  REGISTRY_HOSTNAME: TerraDharitri
 
 name: Build Docker image & push
 
@@ -17,14 +17,21 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
 
     steps:
-      - name: Check out code into the Go module directory
+      - name: Check out code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Added for git describe to work properly
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_HOSTNAME }}/${{ env.IMAGE_NODE }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=sha,prefix=
+            type=ref,event=branch
+            type=ref,event=pr
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -46,3 +53,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha  # Added for better caching
+          cache-to: type=gha,mode=max  # Added for better caching
