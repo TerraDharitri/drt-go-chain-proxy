@@ -44,7 +44,7 @@ WORKDIR /drt-go-chain-proxy/cmd/proxy
 # Build with explicit flags and optimizations
 ARG VERSION="dev"
 ARG COMMIT_SHA="none"
-RUN CGO_ENABLED=0 GOOS=linux go build \
+RUN go build \
     -ldflags="-s -w \
     -X 'main.appVersion=${VERSION}' \
     -X 'main.commitID=${COMMIT_SHA}'" \
