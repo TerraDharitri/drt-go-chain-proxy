@@ -35,7 +35,7 @@ import (
 
 const (
 	defaultLogsPath      = "logs"
-	logFilePrefix        = "drt-chain-proxy-go"
+	logFilePrefix        = "drt-go-chain-proxy"
 	logFileLifeSpanInSec = 86400
 	logFileMaxSizeInMB   = 1024
 	addressHRP           = "drt"
