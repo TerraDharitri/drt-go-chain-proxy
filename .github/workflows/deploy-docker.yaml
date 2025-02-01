@@ -1,6 +1,55 @@
+# env:
+#   IMAGE_NODE: chain-proxy
+#   REGISTRY_HOSTNAME: dharitri
+
+# name: Build Docker image & push
+
+# on:
+#   release:
+#     types: [published]
+#   pull_request:
+
+# jobs:
+#   build-docker-image:
+#     strategy:
+#       matrix:
+#         runs-on: [ubuntu-latest]
+#     runs-on: ${{ matrix.runs-on }}
+
+#     steps:
+#       - name: Check out code into the Go module directory
+#         uses: actions/checkout@v4
+
+#       - name: Extract metadata (tags, labels) for Docker
+#         id: meta
+#         uses: docker/metadata-action@v5
+#         with:
+#           images: ${{ env.REGISTRY_HOSTNAME }}/${{ env.IMAGE_NODE }}
+
+#       - name: Set up Docker Buildx
+#         uses: docker/setup-buildx-action@v3
+
+#       - name: Log into Docker Hub
+#         if: github.event_name != 'pull_request'
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+#       - name: Build and push image to Docker Hub
+#         id: push
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: .
+#           file: ./docker/Dockerfile
+#           platforms: linux/amd64,linux/arm64
+#           push: ${{ github.event_name != 'pull_request' }}
+#           tags: ${{ steps.meta.outputs.tags }}
+#           labels: ${{ steps.meta.outputs.labels }}
+
 env:
   IMAGE_NODE: chain-proxy
-  REGISTRY_HOSTNAME: dharitri
+  REGISTRY_HOSTNAME: terradharitri  # Updated to your organization name
 
 name: Build Docker image & push
 
@@ -11,20 +60,23 @@ on:
 
 jobs:
   build-docker-image:
-    strategy:
-      matrix:
-        runs-on: [ubuntu-latest]
-    runs-on: ${{ matrix.runs-on }}
-
+    runs-on: ubuntu-latest
+    
     steps:
-      - name: Check out code into the Go module directory
+      - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Extract metadata (tags, labels) for Docker
+      - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_HOSTNAME }}/${{ env.IMAGE_NODE }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -33,11 +85,10 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}  # Make sure this user has access to the organization
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push image to Docker Hub
-        id: push
+          
+      - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
