@@ -1,6 +1,6 @@
 # env:
 #   IMAGE_NODE: chain-proxy
-#   REGISTRY_HOSTNAME: dharitri
+#   REGISTRY_HOSTNAME: terradharitri
 
 # name: Build Docker image & push
 
@@ -66,7 +66,16 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Important for git describe to work
+          fetch-depth: 0
+
+      - name: Get version info
+        id: version
+        run: |
+          echo "VERSION=$(git describe --tags --long || echo 'v0.0.0-dev')" >> $GITHUB_OUTPUT
+          echo "COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Extract metadata
         id: meta
@@ -74,14 +83,11 @@ jobs:
         with:
           images: ${{ env.REGISTRY_HOSTNAME }}/${{ env.IMAGE_NODE }}
           tags: |
+            type=raw,value=latest
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+            type=sha,format=long
 
       - name: Log into Docker Hub
         if: github.event_name != 'pull_request'
@@ -89,12 +95,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Get version information
-        id: version
-        run: |
-          echo "VERSION=$(git describe --tags --long --dirty)" >> $GITHUB_OUTPUT
-          echo "COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build and push
         uses: docker/build-push-action@v5
