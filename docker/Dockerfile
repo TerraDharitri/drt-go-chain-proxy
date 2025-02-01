@@ -10,7 +10,7 @@ COPY . .
 # Build Proxy
 WORKDIR /drt-go-chain-proxy/cmd/proxy
 
-# Remove the git commands from here and use ARG values
+# Use build args instead of git commands
 ARG VERSION="dev"
 ARG COMMIT_SHA="none"
 RUN echo "Building version=${VERSION} commit=${COMMIT_SHA}" && \
@@ -20,7 +20,7 @@ RUN echo "Building version=${VERSION} commit=${COMMIT_SHA}" && \
 FROM ubuntu:latest
 RUN apt-get update -y && apt-get upgrade -y
 
-# Fix the path to match the builder stage
+# Fixed path to match first stage
 COPY --from=builder /drt-go-chain-proxy/cmd/proxy/proxy /drt-go-chain-proxy/cmd/proxy/
 
 WORKDIR /drt-go-chain-proxy/cmd/proxy/
