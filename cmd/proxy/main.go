@@ -420,10 +420,11 @@ func createVersionsRegistry(
 		return nil, err
 	}
 
-	numShards, err := getNumOfShards(cfg)
-	if err != nil {
-		return nil, err
-	}
+	// numShards, err := getNumOfShards(cfg)
+	numShards := uint32(3)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	nodesProviderFactory, err := observer.NewNodesProviderFactory(*cfg, configurationFilePath, numShards)
 	if err != nil {
