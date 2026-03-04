@@ -154,7 +154,7 @@ func BuildUrlWithAccountQueryOptions(path string, options AccountQueryOptions) s
 		query.Set(UrlParameterBlockRootHash, hex.EncodeToString(options.BlockRootHash))
 	}
 	if options.HintEpoch.HasValue {
-		query.Set(UrlParameterHintEpoch, strconv.Itoa(int(options.HintEpoch.Value)))
+		query.Set(UrlParameterHintEpoch, strconv.FormatUint(uint64(options.HintEpoch.Value), 10))
 	}
 	if options.WithKeys {
 		query.Set(UrlParameterWithKeys, "true")
