@@ -1,9 +1,8 @@
 package factory
 
 import (
-	"crypto"
-
 	"github.com/TerraDharitri/drt-go-chain-core/core"
+	"github.com/TerraDharitri/drt-go-chain-crypto"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
 	"github.com/TerraDharitri/drt-go-chain-proxy/observer"

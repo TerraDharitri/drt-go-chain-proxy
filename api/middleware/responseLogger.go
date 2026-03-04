@@ -9,8 +9,8 @@ import (
 	"time"
 	"unicode"
 
-	logger "github.com/TerraDharitri/drt-go-chain-logger"
 	"github.com/gin-gonic/gin"
+	logger "github.com/TerraDharitri/drt-go-chain-logger"
 )
 
 var log = logger.GetOrCreate("api/middleware")
@@ -22,7 +22,7 @@ const (
 	maxLengthRequestOrResponse = 400
 )
 
-// TODO: remove this file and use the same middleware from drt-chain-go after it is merged
+// TODO: remove this file and use the same middleware from drt-go-chain after it is merged
 
 type responseLoggerMiddleware struct {
 	thresholdDurationForLoggingRequest time.Duration

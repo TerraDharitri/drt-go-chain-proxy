@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math/big"
 
-	crypto "github.com/TerraDharitri/drt-go-chain-crypto"
+	"github.com/TerraDharitri/drt-go-chain-crypto"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
 )
 

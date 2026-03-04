@@ -1,6 +1,8 @@
 package logsevents
 
 import (
+	"sort"
+
 	"github.com/TerraDharitri/drt-go-chain-core/core"
 	"github.com/TerraDharitri/drt-go-chain-core/core/check"
 	"github.com/TerraDharitri/drt-go-chain-core/data/transaction"
@@ -41,34 +43,31 @@ func (lm *logsMerger) MergeLogEvents(logSource *transaction.ApiLogs, logDestinat
 		return logSource
 	}
 
-	mergedEvents := make(map[string]*transaction.Events)
-	lm.mergeEvents(mergedEvents, logSource)
-	lm.mergeEvents(mergedEvents, logDestination)
+	eventMap := make(map[string]*transaction.Events)
+	allLogs := []*transaction.ApiLogs{logSource, logDestination}
+	hashes := make([]string, 0)
+	for _, lg := range allLogs {
+		for _, ev := range lg.Events {
+			hash, _ := core.CalculateHash(lm.marshalizer, lm.hasher, ev)
+			_, found := eventMap[string(hash)]
+			if found {
+				continue
+			}
+
+			eventMap[string(hash)] = ev
+			hashes = append(hashes, string(hash))
+		}
+	}
+	sort.Strings(hashes)
+	mergedEvents := make([]*transaction.Events, 0, len(hashes))
+	for _, h := range hashes {
+		mergedEvents = append(mergedEvents, eventMap[h])
+	}
 
 	return &transaction.ApiLogs{
 		Address: logSource.Address,
-		Events:  convertEventsMapInSlice(mergedEvents),
+		Events:  mergedEvents,
 	}
-}
-
-func (lm *logsMerger) mergeEvents(mergedEvents map[string]*transaction.Events, apiLog *transaction.ApiLogs) {
-	for _, event := range apiLog.Events {
-		logHash, err := core.CalculateHash(lm.marshalizer, lm.hasher, event)
-		if err != nil {
-			log.Warn("logsMerger.mergeEvents cannot compute event hash", "error", err.Error())
-		}
-
-		mergedEvents[string(logHash)] = event
-	}
-}
-
-func convertEventsMapInSlice(eventsMap map[string]*transaction.Events) []*transaction.Events {
-	events := make([]*transaction.Events, 0, len(eventsMap))
-	for _, eventLog := range eventsMap {
-		events = append(events, eventLog)
-	}
-
-	return events
 }
 
 // IsInterfaceNil returns true if the value under the interface is nil

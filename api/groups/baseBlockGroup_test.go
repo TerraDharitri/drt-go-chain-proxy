@@ -8,12 +8,12 @@ import (
 
 	"github.com/TerraDharitri/drt-go-chain-core/data/alteredAccount"
 	"github.com/TerraDharitri/drt-go-chain-core/data/api"
-	"github.com/gin-gonic/gin"
 	apiErrors "github.com/TerraDharitri/drt-go-chain-proxy/api/errors"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/groups"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/mock"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

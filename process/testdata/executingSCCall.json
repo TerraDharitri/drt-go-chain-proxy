@@ -8,7 +8,7 @@
         "NotarizedAtSourceInMetaHash": "a4823050d2396540b17bd9290523973763142c9f655bb26cd9e33f359b6d73ad",
         "miniblockType": "TxBlock",
         "miniblockHash": "a4823050d2396540b17bd9290523973763142c9f655bb26cd9e33f359b6d73ad",
-        "receiver": "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2",
+        "receiver": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
         "sender": "drt1kyaqzaprcdnv4luvanah0gfxzzsnpaygsy6pytrexll2urtd05tscswtlq",
         "smartContractResults": [
             {
@@ -134,7 +134,7 @@
             "destinationShard": 0,
             "miniblockType": "SmartContractResultBlock",
             "logs": {
-                "address": "",
+                "address": "drt1rjsy02mc73n2epsgm9u9j50pgwethrm9jfume40tk6gz89qmpdgqywujzj",
                 "events": [
                     {
                         "address": "drt1adfmxhyczrl2t97yx92v5nywqyse0c7qh4xs0p4artg2utnu90psu5mrg6",

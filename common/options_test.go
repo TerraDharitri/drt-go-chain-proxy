@@ -49,7 +49,7 @@ func TestBuildUrlWithAccountQueryOptions_ShouldWork(t *testing.T) {
 	require.Equal(t, "/address/drt1alice?blockHash=abba", builtUrl)
 
 	// The following isn't a valid scenario in the real world, according to the validation defined in:
-	// https://github.com/dharitri/drt-chain-go/blob/master/api/groups/addressGroupOptions.go
+	// https://github.com/TerraDharitri/drt-go-chain/blob/main/api/groups/addressGroupOptions.go
 	// However, here, we are testing each code path.
 	builtUrl = BuildUrlWithAccountQueryOptions("/address/drt1alice", AccountQueryOptions{
 		OnFinalBlock:   true,

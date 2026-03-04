@@ -55,7 +55,7 @@ type GetSCRsResponse struct {
 	Code  string              `json:"code"`
 }
 
-// transactionWrapper is a wrapper over a normal transaction in order to implement the interface needed in drt-chain-go
+// transactionWrapper is a wrapper over a normal transaction in order to implement the interface needed in drt-go-chain
 // for computing gas cost for a transaction
 type transactionWrapper struct {
 	transaction     *Transaction

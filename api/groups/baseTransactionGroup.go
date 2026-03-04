@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gin-gonic/gin"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/errors"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/shared"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
-	"github.com/gin-gonic/gin"
 )
 
 type transactionGroup struct {
@@ -69,7 +69,7 @@ func (group *transactionGroup) sendTransaction(c *gin.Context) {
 	shared.RespondWith(c, http.StatusOK, gin.H{"txHash": txHash}, "", data.ReturnCodeSuccess)
 }
 
-// sendUserFunds will receive an address from the client and propagate a transaction for sending some DRT to that address
+// sendUserFunds will receive an address from the client and propagate a transaction for sending some ERD to that address
 func (group *transactionGroup) sendUserFunds(c *gin.Context) {
 	if !group.facade.IsFaucetEnabled() {
 		shared.RespondWith(

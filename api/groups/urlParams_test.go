@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/TerraDharitri/drt-go-chain-core/core"
 	"github.com/gin-gonic/gin"
+	"github.com/TerraDharitri/drt-go-chain-core/core"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"
 	"github.com/stretchr/testify/require"
 )

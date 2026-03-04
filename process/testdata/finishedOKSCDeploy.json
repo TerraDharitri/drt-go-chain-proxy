@@ -5,7 +5,7 @@
     "processingTypeOnDestination": "SCDeployment",
     "hash": "a4823050d2396540b17bd9290523973763142c9f655bb26cd9e33f359b6d73ad",
     "value": "0",
-    "receiver": " ",
+    "receiver": "drt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq85hk5z",
     "sender": "drt1adfmxhyczrl2t97yx92v5nywqyse0c7qh4xs0p4artg2utnu90psu5mrg6",
     "gasPrice": 1000000000,
     "gasLimit": 550000000,
@@ -26,7 +26,7 @@
           "data": null
         },
         {
-          "address": "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqqqqqq9r2gz0",
+          "address": "drt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq85hk5z",
           "identifier": "writeLog",
           "topics": [
             "geQz5PeDGewXN9wviXwiSXnafo8GYO6dOYXGHRviLjw="

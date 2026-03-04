@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"testing"
 
-	crypto "github.com/TerraDharitri/drt-go-chain-crypto"
+	"github.com/TerraDharitri/drt-go-chain-crypto"
 	"github.com/TerraDharitri/drt-go-chain-crypto/signing"
 	"github.com/TerraDharitri/drt-go-chain-crypto/signing/ed25519"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"

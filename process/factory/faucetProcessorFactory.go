@@ -3,12 +3,12 @@ package factory
 import (
 	"math/big"
 
+	"github.com/TerraDharitri/drt-go-chain-core/core"
+	logger "github.com/TerraDharitri/drt-go-chain-logger"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"
 	"github.com/TerraDharitri/drt-go-chain-proxy/facade"
 	"github.com/TerraDharitri/drt-go-chain-proxy/faucet"
 	"github.com/TerraDharitri/drt-go-chain-proxy/process"
-	"github.com/TerraDharitri/drt-go-chain-core/core"
-	logger "github.com/TerraDharitri/drt-go-chain-logger"
 )
 
 var log = logger.GetOrCreate("process/factory")

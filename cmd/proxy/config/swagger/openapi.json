@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Dharitri Gateway API",
-    "description": "![Dharitri](/mvx-icon.png)\n\nThe documentation describes the endpoints that are available on the drt-go-chain-proxy project. \n\nGithub URL: `https://github.com/TerraDharitri/drt-go-chain-proxy`\n\nThis is used on `gateway.dharitri.com` while the public api (`api.dharitri.com`) is a wrapper over it.\n\nThis API is organized around REST principles, so if you've interacted with RESTful APIs before, many of the concepts will look familiar.\n\n## Request / Response Format\n\nJSON will be returned for all responses, including errors. Empty or blank fields are omitted. Requests with a message body use JSON as well. Successful requests will return a `2xx` HTTP status.\n\nThe general structure of a response is:\n``` JSON\n{\n  data  anything\n  error string\n  code  string\n}\n```\nWhere:\n- data: the expected result if the request was successful. `null` otherwise\n- error: if the request failed, the reason will be returned in this field. empty otherwise\n- code: the internal code for the request. can be `successful`, `internal_issue` or `bad_request`\n",
+    "title": "DharitrI Gateway API",
+    "description": "![DharitrI](/drt-icon.png)\n\nThe documentation describes the endpoints that are available on the drt-go-chain-proxy project. \n\nGithub URL: `https://github.com/TerraDharitri/drt-go-chain-proxy`\n\nThis is used on `gateway.dharitri.org` while the public api (`api.dharitri.org`) is a wrapper over it.\n\nThis API is organized around REST principles, so if you've interacted with RESTful APIs before, many of the concepts will look familiar.\n\n## Request / Response Format\n\nJSON will be returned for all responses, including errors. Empty or blank fields are omitted. Requests with a message body use JSON as well. Successful requests will return a `2xx` HTTP status.\n\nThe general structure of a response is:\n``` JSON\n{\n  data  anything\n  error string\n  code  string\n}\n```\nWhere:\n- data: the expected result if the request was successful. `null` otherwise\n- error: if the request failed, the reason will be returned in this field. empty otherwise\n- code: the internal code for the request. can be `successful`, `internal_issue` or `bad_request`\n",
     "version": "1.1.0"
   },
   "paths": {
@@ -1853,7 +1853,7 @@
                 "nonce": 0,
                 "value": "999",
                 "receiver": "drt12dnfhej64s6c56ka369gkyj3hwv5ms0y5rxgsk2k7hkd2vuk7rvqm22unr",
-                "sender": "4t6l0x27w4d4354sqfm40wuv9p0r49uzl9598eka290x9kws2nvqlkc36j",
+                "sender": "drt14t6l0x27w4d4354sqfm40wuv9p0r49uzl9598eka290x9kws2nvqz20jev",
                 "gasPrice": 1000000000,
                 "gasLimit": 50000,
                 "data": "dGVzdA==",
@@ -2415,7 +2415,7 @@
                 "$ref": "#/components/schemas/VmValuesRequest"
               },
               "example": {
-                "scAddress": "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2",
+                "scAddress": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
                 "funcName": "getAllDCDTTokens"
               }
             }
@@ -2448,7 +2448,7 @@
                 "$ref": "#/components/schemas/VmValuesRequest"
               },
               "example": {
-                "scAddress": "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2",
+                "scAddress": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
                 "funcName": "getAllDCDTTokens"
               }
             }
@@ -2481,7 +2481,7 @@
                 "$ref": "#/components/schemas/VmValuesRequest"
               },
               "example": {
-                "scAddress": "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2",
+                "scAddress": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
                 "funcName": "getAllDCDTTokens"
               }
             }
@@ -2514,7 +2514,7 @@
                 "$ref": "#/components/schemas/VmValuesRequest"
               },
               "example": {
-                "scAddress": "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2",
+                "scAddress": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
                 "funcName": "getAllDCDTTokens"
               }
             }
@@ -2536,8 +2536,8 @@
     }
   },
   "externalDocs": {
-    "description": "Dharitri Docs",
-    "url": "https://docs.dharitri.com"
+    "description": "DharitrI Docs",
+    "url": "https://docs.dharitri.org"
   },
   "servers": [],
   "components": {
@@ -2616,25 +2616,45 @@
           }
         }
       },
-      "AddressData": {
+      "AccountData": {
         "type": "object",
         "properties": {
-          "address": {
-            "type": "string"
-          },
+            "address": {
+              "type": "string"
+            },
+            "nonce": {
+              "type": "integer"
+            },
+            "balance": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "codeHash": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "rootHash": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          }
+      },
+      "BlockInfo": {
+        "type": "object",
+        "properties": {
           "nonce": {
             "type": "integer"
           },
-          "balance": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "codeHash": {
+          "hash": {
             "type": "array",
             "items": {
               "type": "integer"
@@ -2645,6 +2665,17 @@
             "items": {
               "type": "integer"
             }
+          }
+        }
+      },
+      "AddressData": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/AccountData"
+          },
+          "blockInfo": {
+            "$ref": "#/components/schemas/BlockInfo"
           }
         }
       },
@@ -2667,6 +2698,9 @@
         "properties": {
           "balance": {
             "type": "string"
+          },
+          "blockInfo": {
+            "$ref": "#/components/schemas/BlockInfo"
           }
         }
       },
@@ -2689,6 +2723,9 @@
         "properties": {
           "nonce": {
             "type": "integer"
+          },
+          "blockInfo": {
+            "$ref": "#/components/schemas/BlockInfo"
           }
         }
       },
@@ -2711,6 +2748,9 @@
         "properties": {
           "username": {
             "type": "string"
+          },
+          "blockInfo": {
+            "$ref": "#/components/schemas/BlockInfo"
           }
         }
       },

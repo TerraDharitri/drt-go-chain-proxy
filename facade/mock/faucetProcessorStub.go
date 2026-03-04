@@ -3,8 +3,8 @@ package mock
 import (
 	"math/big"
 
-	crypto "github.com/TerraDharitri/drt-go-chain-crypto"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
+	crypto "github.com/TerraDharitri/drt-go-chain-crypto"
 )
 
 type FaucetProcessorStub struct {
