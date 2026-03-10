@@ -3,7 +3,7 @@ module github.com/TerraDharitri/drt-go-chain-proxy
 go 1.23
 
 require (
-	github.com/TerraDharitri/drt-go-chain-core v1.0.1
+	github.com/TerraDharitri/drt-go-chain-core v1.0.2
 	github.com/TerraDharitri/drt-go-chain-crypto v1.0.1
 	github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.1
 	github.com/TerraDharitri/drt-go-chain-logger v1.0.0
