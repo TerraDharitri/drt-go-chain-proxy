@@ -4,8 +4,8 @@ go 1.23
 
 require (
 	github.com/TerraDharitri/drt-go-chain-core v1.0.1
-	github.com/TerraDharitri/drt-go-chain-crypto v1.0.0
-	github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.0
+	github.com/TerraDharitri/drt-go-chain-crypto v1.0.1
+	github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.1
 	github.com/TerraDharitri/drt-go-chain-logger v1.0.0
 	github.com/gin-contrib/cors v1.6.0
 	github.com/gin-contrib/pprof v1.4.0
@@ -34,7 +34,6 @@ require (
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.9 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect

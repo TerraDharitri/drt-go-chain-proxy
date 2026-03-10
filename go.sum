@@ -1,11 +1,13 @@
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
 github.com/TerraDharitri/drt-go-chain-core v1.0.1 h1:k0B3DZNYJwE/NmibEQBVi/TxDm5Ij1Poo2HOv6HcMMM=
 github.com/TerraDharitri/drt-go-chain-core v1.0.1/go.mod h1:dppf7NEpCEr/YrKYrRCnyVLsehIVnXSWMU4cikdL2/Q=
-github.com/TerraDharitri/drt-go-chain-crypto v1.0.0 h1:WxdvBkBt/kuUzofzFKYIZLok/otu51mD2iFCCnXadmQ=
-github.com/TerraDharitri/drt-go-chain-crypto v1.0.0/go.mod h1:viKoiLEX6j8l9X4ByoxA/v+9PKlH97qTQPkgaWUJxvQ=
+github.com/TerraDharitri/drt-go-chain-crypto v1.0.1 h1:kSfVue6EEF41W6MO2TJuaBe448Fpqsyq2/ILvTGaUpQ=
+github.com/TerraDharitri/drt-go-chain-crypto v1.0.1/go.mod h1:viKoiLEX6j8l9X4ByoxA/v+9PKlH97qTQPkgaWUJxvQ=
 github.com/TerraDharitri/drt-go-chain-es-indexer v0.0.6/go.mod h1:ZR1i/Iy0XdUbbOZh2brI78zWLt41Zkt3rWnv1YE5/DY=
 github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.0 h1:GDNf07Rw1/pyxStgSn0incO7R5pKLjTV90d65V2wpfs=
 github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.0/go.mod h1:tf7qbSIp/BHZXOvuWS4aFFaJcwwo/u54zm0a1+CUxHU=
+github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.1 h1:XUTdDphC0/I7sqilVUKov8G7wk/lIkk9eQVd7rpaXMw=
+github.com/TerraDharitri/drt-go-chain-es-indexer v1.0.1/go.mod h1:aBon6UYmfpzKyWyiYo147hRKvbd3pvF8zyJaWnX1AAc=
 github.com/TerraDharitri/drt-go-chain-logger v1.0.0 h1:JU7F0+DLrdV6mNXemd5RzyQcsy/QKCIrhSkvmoeHA9Y=
 github.com/TerraDharitri/drt-go-chain-logger v1.0.0/go.mod h1:5I5eJbzcpPswHIWc1oZXLzlvE3YWJ2S8nzmKZ8CeMm0=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=

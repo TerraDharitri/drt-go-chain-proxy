@@ -69,7 +69,7 @@ func (group *transactionGroup) sendTransaction(c *gin.Context) {
 	shared.RespondWith(c, http.StatusOK, gin.H{"txHash": txHash}, "", data.ReturnCodeSuccess)
 }
 
-// sendUserFunds will receive an address from the client and propagate a transaction for sending some ERD to that address
+// sendUserFunds will receive an address from the client and propagate a transaction for sending some DRT to that address
 func (group *transactionGroup) sendUserFunds(c *gin.Context) {
 	if !group.facade.IsFaucetEnabled() {
 		shared.RespondWith(
