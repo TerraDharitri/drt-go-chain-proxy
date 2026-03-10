@@ -1,3 +1,3 @@
 ## Dharitri Rosetta
 
-Moved at [Dharitri/rosetta](https://github.com/dharitri/drt-chain-rosetta).
+Moved at [Dharitri/rosetta](https://github.com/TerraDharitri/drt-chain-rosetta).

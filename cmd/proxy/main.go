@@ -194,8 +194,8 @@ func main() {
 	}
 	app.Authors = []cli.Author{
 		{
-			Name:  "The Dharitri Team",
-			Email: "contact@dharitri.com",
+			Name:  "Team Dharitri",
+			Email: "contact@dharitri.org",
 		},
 	}
 
@@ -420,11 +420,10 @@ func createVersionsRegistry(
 		return nil, err
 	}
 
-	// numShards, err := getNumOfShards(cfg)
-	numShards := uint32(3)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	numShards, err := getNumOfShards(cfg)
+	if err != nil {
+		return nil, err
+	}
 
 	nodesProviderFactory, err := observer.NewNodesProviderFactory(*cfg, configurationFilePath, numShards)
 	if err != nil {

@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	dcdtContractAddress   = "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2"
+	dcdtContractAddress   = "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez"
 	initialDCDTSupplyFunc = "getTokenProperties"
 
 	networkDCDTSupplyPath = "/network/dcdt/supply/"

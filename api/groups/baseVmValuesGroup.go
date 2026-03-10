@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/TerraDharitri/drt-go-chain-core/core"
 	"github.com/TerraDharitri/drt-go-chain-core/data/vm"
-	"github.com/gin-gonic/gin"
 	apiErrors "github.com/TerraDharitri/drt-go-chain-proxy/api/errors"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/shared"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"

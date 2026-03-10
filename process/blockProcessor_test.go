@@ -974,7 +974,7 @@ func TestBlockProcessor_GetAlteredAccountsByNonce(t *testing.T) {
 	t.Parallel()
 
 	requestedShardID := uint32(1)
-	alteredAcc := &alteredAccount.AlteredAccount{Address: "q"}
+	alteredAcc := &alteredAccount.AlteredAccount{Address: "drt1q"}
 
 	t.Run("could not get observers, should return error", func(t *testing.T) {
 		t.Parallel()

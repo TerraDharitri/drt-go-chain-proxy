@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gin-gonic/gin"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/errors"
 	"github.com/TerraDharitri/drt-go-chain-proxy/api/shared"
 	"github.com/TerraDharitri/drt-go-chain-proxy/common"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
-	"github.com/gin-gonic/gin"
 )
 
 type transactionGroup struct {

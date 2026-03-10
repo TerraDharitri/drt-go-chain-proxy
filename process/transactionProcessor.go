@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/big"
 	"net/http"
+	"sort"
 
 	"github.com/TerraDharitri/drt-go-chain-core/core"
 	"github.com/TerraDharitri/drt-go-chain-core/core/check"
@@ -41,7 +42,7 @@ const (
 	fieldsParam                     = "?fields="
 	lastNonceParam                  = "?last-nonce=true"
 	nonceGapsParam                  = "?nonce-gaps=true"
-	internalVMErrorsEventIdentifier = "internalVMErrors" // TODO export this in drt-chain-core-go, remove unexported definitions from drt-chain-vm's
+	internalVMErrorsEventIdentifier = "internalVMErrors" // TODO export this in drt-go-chain-core, remove unexported definitions from drt-go-chain-vm's
 	moveBalanceDescriptor           = "MoveBalance"
 	relayedV1TransactionDescriptor  = "RelayedTx"
 	relayedV2TransactionDescriptor  = "RelayedTxV2"
@@ -783,7 +784,7 @@ func (tp *TransactionProcessor) getTxFromObservers(txHash string, reqType reques
 		if isIntraShard {
 			shardIDWasFetch[sndShardID].fetched = true
 			if len(getTxResponse.Data.Transaction.SmartContractResults) == 0 {
-				return &getTxResponse.Data.Transaction, nil
+				return applySortOnScrs(&getTxResponse.Data.Transaction), nil
 			}
 
 			tp.extraShardFromSCRs(getTxResponse.Data.Transaction.SmartContractResults, shardIDWasFetch)
@@ -801,7 +802,7 @@ func (tp *TransactionProcessor) getTxFromObservers(txHash string, reqType reques
 				return nil, err
 			}
 
-			return txFromSource, nil
+			return applySortOnScrs(txFromSource), nil
 		}
 
 		// get transaction from observer that is in destination shard
@@ -816,7 +817,9 @@ func (tp *TransactionProcessor) getTxFromObservers(txHash string, reqType reques
 				return nil, err
 			}
 
-			return alteredTxFromDest, nil
+			useGasUsedAndFeeFromSourceInCaseOfDcdtTransfer(&getTxResponse.Data.Transaction, alteredTxFromDest)
+
+			return applySortOnScrs(alteredTxFromDest), nil
 		}
 
 		// return transaction from observer from source shard
@@ -827,27 +830,55 @@ func (tp *TransactionProcessor) getTxFromObservers(txHash string, reqType reques
 			return nil, err
 		}
 
-		return &getTxResponse.Data.Transaction, nil
+		return applySortOnScrs(&getTxResponse.Data.Transaction), nil
 	}
 
 	return nil, errors.ErrTransactionNotFound
 }
 
+func useGasUsedAndFeeFromSourceInCaseOfDcdtTransfer(txFromSource, txFromDestination *transaction.ApiTransactionResult) {
+	for _, scr := range txFromSource.SmartContractResults {
+		if scr.IsRefund && txFromDestination.Operation == core.BuiltInFunctionDCDTTransfer && txFromDestination.Function == "" {
+			txFromDestination.GasUsed = txFromSource.GasUsed
+			txFromDestination.Fee = txFromSource.Fee
+			break
+		}
+	}
+}
+
 func (tp *TransactionProcessor) fetchSCRSBasedOnShardMap(tx *transaction.ApiTransactionResult, shardIDWasFetch map[uint32]*tupleHashWasFetched) error {
-	for shardID, info := range shardIDWasFetch {
-		scrs, err := tp.fetchSCRs(tx.Hash, info.hash, shardID)
-		if err != nil {
-			return err
+	for !wasDataFetchedFromEveryShard(shardIDWasFetch) {
+		for shardID, info := range shardIDWasFetch {
+			if info.fetched {
+				continue
+			}
+
+			scrs, err := tp.fetchSCRs(tx.Hash, info.hash, shardID)
+			if err != nil {
+				return err
+			}
+
+			scResults := append(tx.SmartContractResults, scrs...)
+			scResultsNew := tp.getScResultsUnion(scResults)
+
+			tx.SmartContractResults = scResultsNew
+			info.fetched = true
 		}
 
-		scResults := append(tx.SmartContractResults, scrs...)
-		scResultsNew := tp.getScResultsUnion(scResults)
-
-		tx.SmartContractResults = scResultsNew
-		info.fetched = true
+		tp.extraShardFromSCRs(tx.SmartContractResults, shardIDWasFetch)
 	}
 
 	return nil
+}
+
+func wasDataFetchedFromEveryShard(shardIDWasFetch map[uint32]*tupleHashWasFetched) bool {
+	for _, info := range shardIDWasFetch {
+		if !info.fetched {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (tp *TransactionProcessor) fetchSCRs(txHash, scrHash string, shardID uint32) ([]*transaction.ApiSmartContractResult, error) {
@@ -913,7 +944,8 @@ func (tp *TransactionProcessor) extraShardFromSCRs(scrs []*transaction.ApiSmartC
 }
 
 func (tp *TransactionProcessor) alterTxWithScResultsFromSourceIfNeeded(txHash string, tx *transaction.ApiTransactionResult, withResults bool, shardIDWasFetch map[uint32]*tupleHashWasFetched) *transaction.ApiTransactionResult {
-	if !withResults || len(tx.SmartContractResults) == 0 {
+	shouldExit := !withResults || (len(tx.SmartContractResults) == 0 && tx.Logs == nil)
+	if shouldExit {
 		return tx
 	}
 
@@ -934,6 +966,8 @@ func (tp *TransactionProcessor) alterTxWithScResultsFromSourceIfNeeded(txHash st
 			hash:    getTxResponse.Data.Transaction.Hash,
 			fetched: true,
 		}
+
+		useGasUsedAndFeeFromSourceInCaseOfDcdtTransfer(&getTxResponse.Data.Transaction, alteredTxFromDest)
 
 		return alteredTxFromDest
 	}
@@ -1486,4 +1520,15 @@ func (tp *TransactionProcessor) getTxPoolNonceGapsFromObserver(
 	}
 
 	return &nonceGapsResponse.Data.NonceGaps, true
+}
+
+func applySortOnScrs(txWithSCRS *transaction.ApiTransactionResult) *transaction.ApiTransactionResult {
+	if txWithSCRS == nil {
+		return nil
+	}
+
+	sort.Slice(txWithSCRS.SmartContractResults, func(i, j int) bool {
+		return txWithSCRS.SmartContractResults[i].Hash < txWithSCRS.SmartContractResults[j].Hash
+	})
+	return txWithSCRS
 }

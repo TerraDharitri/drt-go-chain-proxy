@@ -40,7 +40,7 @@ type vmOutputGenericResponse struct {
 }
 
 const vmValuesPath = "/vm-values"
-const DummyScAddress = "l453hd0gt5gzdp7czpuall8ggt2dcv5zwmfdf3sd3lguxseux2fsmsgldz"
+const DummyScAddress = "drt1l453hd0gt5gzdp7czpuall8ggt2dcv5zwmfdf3sd3lguxseux2fsxvluwu"
 
 func TestNewVmValuesGroup_WrongFacadeShouldErr(t *testing.T) {
 	wrongFacade := &mock.WrongFacade{}

@@ -3,6 +3,7 @@ package txcost
 import (
 	"testing"
 
+	"github.com/TerraDharitri/drt-go-chain-core/data/smartContractResult"
 	"github.com/TerraDharitri/drt-go-chain-proxy/data"
 	"github.com/TerraDharitri/drt-go-chain-proxy/process/mock"
 	"github.com/stretchr/testify/require"
@@ -39,7 +40,7 @@ func TestTransactionCostProcessor_PrepareGasUsedShouldWork(t *testing.T) {
 			TxCost: 1000,
 		},
 	})
-	newTxCostProcessor.txsFromSCR = append(newTxCostProcessor.txsFromSCR, &data.Transaction{
+	newTxCostProcessor.scrsToExecute = append(newTxCostProcessor.scrsToExecute, &smartContractResult.SmartContractResult{
 		GasLimit: 200,
 	})
 
