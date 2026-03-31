@@ -2,7 +2,7 @@
 
 The **DharitrI Proxy** acts as an entry point into the DharitrI Network. 
 
-![DharitrI Proxy - Architectural Overview](assets/overview.png "DharitrI Proxy - Architectural Overview")
+![DharitrI Proxy - Architectural Overview](assets/overview.svg "DharitrI Proxy - Architectural Overview")
 
 For more details, go [here](https://docs.dharitri.org/sdk-and-tools/proxy/).
 
